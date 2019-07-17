@@ -28,39 +28,31 @@ namespace FormularioCadastro
             {
                 lblMessage.Text = "Please fill all necessary filds!";
             }
-            else if (txtPassword != txtConfirmPassword)
+            else if (txtPassword.Text != txtConfirmPassword.Text)
             {
                 lblMessage.Text = "Password do not match!";
             }
             else
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
+                string sqlCmd = "INSERT INTO UserRegistration (FirstName, LastName, Contact, Gender, Address, UserName, PassWord)" +
+                    "VALUE ('firstname', 'lastname', 'contact', 'gender', 'address', 'username', 'password')";
+                SqlConnection connection = new SqlConnection(connectionString);
+                connection.Open();
 
-                    {
-                        try
-                        {
-                            connection.Open();
+                SqlCommand cmd = new SqlCommand(sqlCmd, connection);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("firstname", txtFirstname.Text);
+                cmd.Parameters.AddWithValue("lastname", txtLastName.Text);
+                cmd.Parameters.AddWithValue("contact", txtContact.Text);
+                cmd.Parameters.AddWithValue("gender", RadioButtonList1.SelectedValue);
+                cmd.Parameters.AddWithValue("address", DropDownList1.SelectedValue);
+                cmd.Parameters.AddWithValue("username", txtUsername.Text);
+                cmd.Parameters.AddWithValue("password", txtPassword.Text);
+                cmd.ExecuteNonQuery();
+                connection.Close();
 
-                            SqlCommand cmd = new SqlCommand("insert into UserRegistration (firstname, lastname, contact, gender, address, username, password) value (@firstname, @lastname, @contact, @gender, @address, @username, @password)", connection);
-                            cmd.Parameters.AddWithValue("@firstname", txtFirstname.Text);
-                            cmd.Parameters.AddWithValue("@lastname", txtLastName.Text);
-                            cmd.Parameters.AddWithValue("@contact", txtContact.Text);
-                            cmd.Parameters.AddWithValue("@gender", RadioButtonList1.SelectedValue);
-                            cmd.Parameters.AddWithValue("@address", DropDownList1.SelectedValue);
-                            cmd.Parameters.AddWithValue("@username", txtUsername.Text);
-                            cmd.Parameters.AddWithValue("@password", txtPassword.Text);
-                            cmd.ExecuteNonQuery();
-                            connection.Close();
-                            Response.Redirect("Login.aspx");
-                        }
-                        catch (Exception ex)
-                        {
-                            Console.WriteLine(ex.Message);
-                        }
-                    }
-                }
             }
+            Response.Redirect("Login.aspx");
         }
     }
 }

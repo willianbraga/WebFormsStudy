@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FormularioCadastro.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -18,6 +19,9 @@ namespace FormularioCadastro
         {
             Session.Abandon();
             Response.Redirect("Login.aspx");
+
+            //GridView1.DataSource = new List<Person>();
+            //GridView1.DataBind();
         }
 
         protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)

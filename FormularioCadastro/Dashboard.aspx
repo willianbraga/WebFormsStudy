@@ -51,7 +51,7 @@
                     <asp:BoundField DataField="Address" HeaderText="Address" SortExpression="Address" />
                     <asp:BoundField DataField="UserName" HeaderText="UserName" SortExpression="UserName" />
                     <asp:BoundField DataField="PassWord" HeaderText="PassWord" SortExpression="PassWord" />
-                    <asp:CommandField ShowDeleteButton="True" ShowEditButton="True" />
+                    <asp:CommandField ShowDeleteButton="True" ShowEditButton="True" ShowSelectButton="True" />
                 </Columns>
                 <EditRowStyle BackColor="#999999" />
                 <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
